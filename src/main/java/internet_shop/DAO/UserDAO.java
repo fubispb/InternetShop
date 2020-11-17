@@ -12,22 +12,27 @@ import java.sql.SQLException;
 public class UserDAO {
 
     private BucketService bucketService;
+    private ConnectBaseService connectBaseService;
+
+    public UserDAO(ConnectBaseService connectBaseService, BucketService bucketService) {
+        this.bucketService = bucketService;
+        this.connectBaseService = connectBaseService;
+    }
 
     public User getUserById(long id) {
-        bucketService = BucketService.getInstance();
         String name = null;
         try {
-            ConnectBaseService.connect();
-            ResultSet rs = ConnectBaseService.statement.executeQuery("" +
+            connectBaseService.connect();
+            ResultSet rs = connectBaseService.getStatement().executeQuery("" +
                     "SELECT name " +
                     "FROM users " +
                     "WHERE id = '" + id + "';");
             rs.next();
             name = rs.getString("name");
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Start log. " + e);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            ConnectBaseService.disconnect();
+            connectBaseService.disconnect();
         }
         return new User(id, name, bucketService.getBucketByUserId(id));
 

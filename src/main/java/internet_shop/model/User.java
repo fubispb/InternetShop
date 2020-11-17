@@ -20,7 +20,6 @@ public class User implements Serializable {
     public User(long id, String name, Map<Product, Integer> bucket) {
         this.id = id;
         this.name = name;
-        this.bucketService = BucketService.getInstance();
         this.bucket = bucketService.getBucketByUserId(id);
     }
 

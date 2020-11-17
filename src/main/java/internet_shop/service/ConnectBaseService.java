@@ -2,25 +2,40 @@ package internet_shop.service;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @Slf4j
 public class ConnectBaseService {
 
-    public static Connection connection;
-    public static Statement statement;
+    private Connection connection;
+    private Statement statement;
+    private DataSource dataSource;
 
-    public static void connect() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost/my_shop", "admin", "123456");
+    public ConnectBaseService(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public void connect() throws SQLException {
+        connection = dataSource.getConnection();
         statement = connection.createStatement();
     }
 
-    public static void disconnect() {
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public void disconnect() {
         try {
             connection.close();
         } catch (SQLException e) {
-            log.error("Start log. " + e);
+           log.error("Start log. " + e);
         }
     }
 }

@@ -1,8 +1,11 @@
 package internet_shop.servlets;
 
+import internet_shop.model.Bucket;
 import internet_shop.model.Product;
 import internet_shop.service.BucketService;
 import internet_shop.service.ProductService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@Controller
 public class GoodListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 3636763966574389631L;
@@ -18,8 +22,11 @@ public class GoodListServlet extends HttpServlet {
     private BucketService bucketService;
 
     public GoodListServlet() {
-        this.productService = ProductService.getInstance();
-        this.bucketService = BucketService.getInstance();
+    }
+
+    public GoodListServlet(ProductService productService, BucketService bucketService) {
+        this.productService = productService;
+        this.bucketService = bucketService;
     }
 
     @Override

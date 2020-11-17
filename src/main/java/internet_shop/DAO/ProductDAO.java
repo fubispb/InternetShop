@@ -12,11 +12,17 @@ import java.util.List;
 @Slf4j
 public class ProductDAO {
 
+    private ConnectBaseService connectBaseService;
+
+    public ProductDAO(ConnectBaseService connectBaseService) {
+        this.connectBaseService = connectBaseService;
+    }
+
     public List<Product> getGeneralProductList() {
         List<Product> list = new ArrayList<>();
         try {
-            ConnectBaseService.connect();
-            ResultSet rs = ConnectBaseService.statement.executeQuery("" +
+            connectBaseService.connect();
+            ResultSet rs = connectBaseService.getStatement().executeQuery("" +
                     "SELECT product_id, name, price " +
                     "FROM products;");
             while (rs.next()) {
@@ -26,10 +32,10 @@ public class ProductDAO {
                         rs.getInt("price"));
                 list.add(product);
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            log.error("Start log. " + e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            ConnectBaseService.disconnect();
+            connectBaseService.disconnect();
         }
         return list;
     }
