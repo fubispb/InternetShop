@@ -33,7 +33,7 @@ public class ProductDAO {
                 list.add(product);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Start log. " + e);
         } finally {
             connectBaseService.disconnect();
         }

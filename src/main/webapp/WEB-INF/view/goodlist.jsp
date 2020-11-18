@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Menu:</h2>
-<div><a href="myshop">Main page</a></div>
+<div><a href="/">Main page</a></div>
 <div><a href="bucket">Your bucket</a></div>
 <div>Enter count of goods you need:</div>
 <table border="2">

@@ -37,7 +37,7 @@ public class BucketDAO {
                 bucket.put(product, count);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Start log. " + e);
         } finally {
             connectBaseService.disconnect();
         }
@@ -58,7 +58,7 @@ public class BucketDAO {
         }
     }
 
-    public void insertInUserBucket(long id, int count) {
+    public void insertInUserBucket(Long id, Integer count) {
         try {
             connectBaseService.connect();
             PreparedStatement preparedStatement = connectBaseService.getConnection().prepareStatement("" +

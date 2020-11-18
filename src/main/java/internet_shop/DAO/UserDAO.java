@@ -30,7 +30,7 @@ public class UserDAO {
             rs.next();
             name = rs.getString("name");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Start log. " + e);
         } finally {
             connectBaseService.disconnect();
         }

@@ -22,7 +22,7 @@ public class BucketService {
         return bucketDAO.getUserBucketById(id);
     }
 
-    public void insertInBucketByProductId(long id, int count) {
+    public void insertInBucketByProductId(Long id, Integer count) {
         bucketDAO.insertInUserBucket(id, count);
     }
 
