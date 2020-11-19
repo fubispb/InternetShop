@@ -64,7 +64,7 @@ public class BucketDAO {
         }
     }
 
-    public void insertInUserBucket(Long id, Integer count) {
+    public void insertInUserBucket(long id, int count) {
         try {
             connectBaseService.connect();
             PreparedStatement preparedStatement = connectBaseService.getConnection().prepareStatement("" +
