@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Menu:</h2>
-<div><a href="myshop">Main page</a></div>
+<div><a href="/InternetShop_war">Main page</a></div>
 <div><a href="bucket">Your bucket</a></div>
 <div>Enter count of goods you need:</div>
 <table border="2">
@@ -16,7 +16,7 @@
         <td>Price</td>
         <td>Count</td>
     </tr>
-    <c:forEach items="${product}" var="product">
+    <c:forEach  items="${product}" var="product">
         <tr>
             <td>${product.getId()}</td>
             <td>${product.getName()}</td>

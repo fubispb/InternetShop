@@ -3,38 +3,35 @@ package internet_shop.servlets;
 import internet_shop.model.Product;
 import internet_shop.service.BucketService;
 import internet_shop.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-public class GoodListServlet extends HttpServlet {
+@Controller
+@RequestMapping("goodlist")
+public class GoodListServlet {
 
-    private static final long serialVersionUID = 3636763966574389631L;
+    @Autowired
     private ProductService productService;
+    @Autowired
     private BucketService bucketService;
 
-    public GoodListServlet() {
-        this.productService = ProductService.getInstance();
-        this.bucketService = BucketService.getInstance();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @GetMapping
+    public String getList(Model model){
         List<Product> listOfProducts = productService.getProducts();
-        req.setAttribute("product", listOfProducts);
-        req.getRequestDispatcher("WEB-INF/view/goodlist.jsp").forward(req, resp);
-
+        model.addAttribute("product", listOfProducts);
+        return "goodlist";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int count = Integer.parseInt(req.getParameter("count"));
-        long id = Long.parseLong(req.getParameter("id"));
+    @PostMapping
+    public String index(Long id, Integer count){
         bucketService.insertInBucketByProductId(id, count);
-        resp.sendRedirect("goodlist");
+        return "redirect:goodlist";
     }
+
 }

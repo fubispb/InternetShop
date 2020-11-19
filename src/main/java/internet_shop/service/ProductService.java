@@ -8,20 +8,17 @@ import java.util.Objects;
 
 public class ProductService {
 
-    private ProductDAO productDAO = new ProductDAO();
+    private ConnectBaseService connectBaseService;
+    private ProductDAO productDAO;
     private List<Product> generalProductList;
-    private static ProductService instance;
 
-    private ProductService() {
-        this.generalProductList = productDAO.getGeneralProductList();
-    }
-
-    public static ProductService getInstance() {
-        if (Objects.isNull(instance)) instance = new ProductService();
-        return instance;
+    public ProductService(ConnectBaseService connectBaseService, ProductDAO productDAO) {
+        this.connectBaseService = connectBaseService;
+        this.productDAO = productDAO;
     }
 
     public List<Product> getProducts() {
+        if (Objects.isNull(generalProductList)) generalProductList = productDAO.getGeneralProductList();
         return generalProductList;
     }
 
