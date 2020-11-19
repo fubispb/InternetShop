@@ -1,9 +1,12 @@
 package internet_shop.DAO;
 
-import internet_shop.service.ConnectBaseService;
 import internet_shop.model.Product;
+import internet_shop.service.ConnectBaseService;
 import internet_shop.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +15,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Slf4j
+@Component
+@Transactional
 public class BucketDAO {
 
     private ProductService productService;
     private ConnectBaseService connectBaseService;
 
+    @Autowired
     public BucketDAO(ProductService productService, ConnectBaseService connectBaseService) {
         this.productService = productService;
         this.connectBaseService = connectBaseService;

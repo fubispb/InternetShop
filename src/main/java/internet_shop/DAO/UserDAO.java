@@ -1,39 +1,33 @@
 package internet_shop.DAO;
 
+import internet_shop.mapper.UserMapper;
 import internet_shop.model.User;
 import internet_shop.service.BucketService;
-import internet_shop.service.ConnectBaseService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.ResultSet;
+import javax.sql.DataSource;
 
 @Slf4j
-public class UserDAO {
+@Repository
+@Transactional
+public class UserDAO extends JdbcDaoSupport {
 
     private BucketService bucketService;
-    private ConnectBaseService connectBaseService;
 
-    public UserDAO(ConnectBaseService connectBaseService, BucketService bucketService) {
+    @Autowired
+    public UserDAO(DataSource dataSource, BucketService bucketService) {
         this.bucketService = bucketService;
-        this.connectBaseService = connectBaseService;
+        this.setDataSource(dataSource);
     }
 
     public User getUserById(long id) {
-        String name = null;
-        try {
-            connectBaseService.connect();
-            ResultSet rs = connectBaseService.getStatement().executeQuery("" +
-                    "SELECT name " +
-                    "FROM users " +
-                    "WHERE id = '" + id + "';");
-            rs.next();
-            name = rs.getString("name");
-        } catch (Exception e) {
-            log.error("Start log. " + e);
-        } finally {
-            connectBaseService.disconnect();
-        }
-        return new User(id, name, bucketService.getBucketByUserId(id));
-
+        String sql = UserMapper.SQL_QUERY(id);
+        Object[] params = new Object[] {};
+        UserMapper mapper = new UserMapper(bucketService);
+        return this.getJdbcTemplate().query(sql, params, mapper).get(0);
     }
 }

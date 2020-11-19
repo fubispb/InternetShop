@@ -4,6 +4,7 @@ import internet_shop.DAO.ProductDAO;
 import internet_shop.model.Product;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ProductService {
 
@@ -11,13 +12,13 @@ public class ProductService {
     private ProductDAO productDAO;
     private List<Product> generalProductList;
 
-    public ProductService(ConnectBaseService connectBaseService) {
+    public ProductService(ConnectBaseService connectBaseService, ProductDAO productDAO) {
         this.connectBaseService = connectBaseService;
-        productDAO = new ProductDAO(connectBaseService);
-        this.generalProductList = productDAO.getGeneralProductList();
+        this.productDAO = productDAO;
     }
 
     public List<Product> getProducts() {
+        if (Objects.isNull(generalProductList)) generalProductList = productDAO.getGeneralProductList();
         return generalProductList;
     }
 

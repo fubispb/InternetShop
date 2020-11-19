@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Menu:</h2>
-<div><a href="/AndersenTrainee_war">Main page</a></div>
+<div><a href="/InternetShop_war">Main page</a></div>
 <div><a href="goodlist">Good list</a></div>
 <div>Your bucket contains:</div>
 <table border="2">

@@ -10,10 +10,10 @@ public class UserService {
     private ConnectBaseService connectBaseService;
     private BucketService bucketService;
 
-    public UserService(ConnectBaseService connectBaseService, BucketService bucketService) {
+    public UserService(ConnectBaseService connectBaseService, BucketService bucketService, UserDAO userDAO) {
         this.connectBaseService = connectBaseService;
         this.bucketService = bucketService;
-        this.userDAO = new UserDAO(connectBaseService, bucketService);
+        this.userDAO = userDAO;
     }
 
     public User getUserById(long id) {

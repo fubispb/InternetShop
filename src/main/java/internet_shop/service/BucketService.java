@@ -12,10 +12,10 @@ public class BucketService {
     private ProductService productService;
 
 
-    public BucketService(ConnectBaseService connectBaseService, ProductService productService) {
+    public BucketService(ConnectBaseService connectBaseService, ProductService productService, BucketDAO bucketDAO) {
         this.connectBaseService = connectBaseService;
         this.productService = productService;
-        bucketDAO = new BucketDAO(productService, connectBaseService);
+        this.bucketDAO = bucketDAO;
     }
 
     public Map<Product, Integer> getBucketByUserId(long id) {
