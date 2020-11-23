@@ -8,35 +8,26 @@ import internet_shop.service.BucketService;
 import internet_shop.service.ConnectBaseService;
 import internet_shop.service.ProductService;
 import internet_shop.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.orm.jpa.JpaTransactionManager;
 
 import javax.sql.DataSource;
 
 @EnableWebMvc
 @EnableTransactionManagement
 @Configuration
-@ComponentScan("internet_shop")
+@RequiredArgsConstructor
 public class SpringConfig implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
-
-    @Autowired
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
     @Bean
     public ConnectBaseService connectBaseService(DataSource dataSource) {
@@ -71,8 +62,8 @@ public class SpringConfig implements WebMvcConfigurer {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost/my_shop");
-        ds.setUsername("admin");
-        ds.setPassword("123456");
+        ds.setUsername("root");
+        ds.setPassword("QQferrari9900");
         return ds;
     }
 
