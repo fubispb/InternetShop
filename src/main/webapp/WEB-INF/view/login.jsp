@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="container" style="width: 300px;">
-    <c:url value="/j_spring_security_check" var="loginUrl" />
+    <c:url value="/login" var="loginUrl" />
     <form action="${loginUrl}" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <input type="text" class="form-control" name="j_username" required autofocus value="user1">
