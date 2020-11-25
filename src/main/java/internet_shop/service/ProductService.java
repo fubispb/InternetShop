@@ -1,6 +1,7 @@
 package internet_shop.service;
 
 import internet_shop.DAO.ProductDAO;
+import internet_shop.entity.ProductEntity;
 import internet_shop.model.Product;
 
 import java.util.List;

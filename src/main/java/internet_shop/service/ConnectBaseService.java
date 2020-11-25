@@ -35,7 +35,7 @@ public class ConnectBaseService {
         try {
             connection.close();
         } catch (SQLException e) {
-           log.error("Start log. " + e);
+            log.error("Start log. " + e);
         }
     }
 }

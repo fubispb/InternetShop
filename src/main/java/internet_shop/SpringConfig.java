@@ -19,6 +19,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 @EnableWebMvc
@@ -73,4 +75,11 @@ public class SpringConfig implements WebMvcConfigurer {
         dataSourceTransactionManager.setDataSource(dataSource);
         return dataSourceTransactionManager;
     }
+
+    @Bean
+    public EntityManagerFactory persistence() {
+        return Persistence.createEntityManagerFactory("MyShopCriteria");
+    }
+
+
 }

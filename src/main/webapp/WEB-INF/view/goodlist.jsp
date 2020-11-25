@@ -14,6 +14,7 @@
         <td>ID</td>
         <td>Name</td>
         <td>Price</td>
+        <td>Country</td>
         <td>Count</td>
     </tr>
     <c:forEach  items="${product}" var="product">
@@ -21,6 +22,7 @@
             <td>${product.getId()}</td>
             <td>${product.getName()}</td>
             <td>${product.getPrice()}</td>
+            <td>${product.getCountry()}</td>
             <td>
                 <form action="goodlist" method="post">
                     <input type="hidden" name="id" value="${product.getId()}">

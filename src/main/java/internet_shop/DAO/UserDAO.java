@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 @Slf4j
 @Repository
-@Transactional(isolation= Isolation.REPEATABLE_READ, propagation= Propagation.REQUIRED)
+@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
 public class UserDAO extends JdbcDaoSupport {
 
     private BucketService bucketService;
@@ -28,7 +28,7 @@ public class UserDAO extends JdbcDaoSupport {
 
     public User getUserById(long id) {
         String sql = UserMapper.SQL_QUERY(id);
-        Object[] params = new Object[] {};
+        Object[] params = new Object[]{};
         UserMapper mapper = new UserMapper(bucketService);
         return this.getJdbcTemplate().query(sql, params, mapper).get(0);
     }

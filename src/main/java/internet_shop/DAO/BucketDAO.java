@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 @Slf4j
 @Component
-@Transactional(isolation= Isolation.REPEATABLE_READ, propagation= Propagation.REQUIRED)
+@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
 public class BucketDAO {
 
     private ProductService productService;

@@ -21,14 +21,14 @@ public class GoodListServlet {
     private final BucketService bucketService;
 
     @GetMapping
-    public String getList(Model model){
+    public String getList(Model model) {
         List<Product> listOfProducts = productService.getProducts();
         model.addAttribute("product", listOfProducts);
         return "goodlist";
     }
 
     @PostMapping
-    public String index(Long id, Integer count){
+    public String index(Long id, Integer count) {
         bucketService.insertInBucketByProductId(id, count);
         return "redirect:goodlist";
     }
