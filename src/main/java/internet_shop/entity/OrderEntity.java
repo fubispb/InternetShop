@@ -9,19 +9,19 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "orders")
-public class Order {
+public class OrderEntity extends AbstractIdentifiableEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id")
+    private UserEntity user;
 
-    @ManyToOne
-    private User user;
-
+    @Column
     private boolean processed;
 
+    @Column
     private int sum;
 
+    @Column
     private LocalDate date;
 
 

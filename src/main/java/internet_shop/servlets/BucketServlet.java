@@ -23,8 +23,7 @@ public class BucketServlet {
 
     @GetMapping
     public String getList(Model model){
-        User user = userService.getUserById(1);
-        model.addAttribute("bucket", user.getBucket());
+        model.addAttribute("bucket", bucketService.getBucketByUserId(1));
         return "bucket";
     }
 

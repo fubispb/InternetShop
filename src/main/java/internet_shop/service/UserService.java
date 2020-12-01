@@ -1,6 +1,7 @@
 package internet_shop.service;
 
 import internet_shop.DAO.UserDAO;
+import internet_shop.entity.UserEntity;
 import internet_shop.model.Product;
 import internet_shop.model.User;
 
@@ -17,11 +18,12 @@ public class UserService {
     }
 
     public User getUserById(long id) {
-        return userDAO.getUserById(id);
+        UserEntity userEntity = userDAO.getUserById(id);
+        return new User(id, userEntity.getName());
     }
 
     public void deleteProductFromBucketByName(User user, Product product) {
-        user.removeFromBucketByProduct(product);
+        bucketService.removeProductFromBucketByProductId(user.getId(), product.getId());
     }
 
 }

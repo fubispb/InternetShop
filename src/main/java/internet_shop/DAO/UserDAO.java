@@ -1,7 +1,6 @@
 package internet_shop.DAO;
 
-import internet_shop.mapper.UserMapper;
-import internet_shop.model.User;
+import internet_shop.entity.UserEntity;
 import internet_shop.service.BucketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Slf4j
@@ -19,17 +20,18 @@ import javax.sql.DataSource;
 public class UserDAO extends JdbcDaoSupport {
 
     private BucketService bucketService;
+    private EntityManagerFactory entityManagerFactory;
 
     @Autowired
-    public UserDAO(DataSource dataSource, BucketService bucketService) {
+    public UserDAO(DataSource dataSource, BucketService bucketService, EntityManagerFactory entityManagerFactory) {
         this.bucketService = bucketService;
         this.setDataSource(dataSource);
+        this.entityManagerFactory = entityManagerFactory;
     }
 
-    public User getUserById(long id) {
-        String sql = UserMapper.SQL_QUERY(id);
-        Object[] params = new Object[]{};
-        UserMapper mapper = new UserMapper(bucketService);
-        return this.getJdbcTemplate().query(sql, params, mapper).get(0);
+    public UserEntity getUserById(long id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        return em.find(UserEntity.class, id);
     }
+
 }

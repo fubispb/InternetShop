@@ -4,6 +4,7 @@ import internet_shop.DAO.ProductDAO;
 import internet_shop.entity.ProductEntity;
 import internet_shop.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,14 +20,27 @@ public class ProductService {
     }
 
     public List<Product> getProducts() {
-        if (Objects.isNull(generalProductList)) generalProductList = productDAO.getGeneralProductList();
+        if (Objects.isNull(generalProductList)) {
+            generalProductList = new ArrayList<>();
+            List<ProductEntity> entityProductsList = productDAO.getGeneralProductList();
+            for (ProductEntity products : entityProductsList) {
+                generalProductList.add(new Product(
+                        products.getId(),
+                        products.getName(),
+                        products.getPrice(),
+                        products.getCountry().getName()
+                ));
+            }
+        }
         return generalProductList;
     }
 
     public Product getProductById(long id) {
+        if (Objects.isNull(generalProductList)) getProducts();
         for (Product product : generalProductList) {
             if (product.getId() == id) {
                 return product;
+
             }
         }
         return null;
