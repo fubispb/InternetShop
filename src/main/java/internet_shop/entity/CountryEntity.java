@@ -9,15 +9,12 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "countries")
-public class Country {
+public class CountryEntity extends AbstractIdentifiableEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "id")
     private List<ProductEntity> products;
 
 
